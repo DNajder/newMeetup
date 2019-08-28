@@ -1,20 +1,20 @@
 package end_project.new_meetup.mapper;
 
 import end_project.new_meetup.dao.UserModel;
-import end_project.new_meetup.dto.UserRegisterDto;
+import end_project.new_meetup.dto.UserRegisterDTO;
 import org.springframework.core.convert.converter.Converter;
 
-public class UserModelToUserRegisterMapper implements Converter<UserModel, UserRegisterDto> {
+public class UserModelToUserRegisterMapper implements Converter<UserModel, UserRegisterDTO> {
     @Override
-    public UserRegisterDto convert(UserModel userModel) {
+    public UserRegisterDTO convert(UserModel userModel) {
         if (userModel == null) {
             return null;
         }
-        final UserRegisterDto userRegisterDto = new UserRegisterDto();
-        userRegisterDto.setName(userModel.getName());
-        userRegisterDto.setEmail(userModel.getEmail());
-        userRegisterDto.setPassword(userModel.getPasswordHash());
-        return userRegisterDto;
+        final UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
+        userRegisterDTO.setName(userModel.getName());
+        userRegisterDTO.setEmail(userModel.getEmail());
+        userRegisterDTO.setPassword(userModel.getPasswordHash());
+        return userRegisterDTO;
     }
 
 }

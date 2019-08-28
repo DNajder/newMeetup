@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @ToString
-public class UserRegisterDto {
+public class UserRegisterDTO {
 
     @NotBlank(message = "WPISZ NAZWĘ UŻTKOWNIKA")
     @Size(max = 50)
