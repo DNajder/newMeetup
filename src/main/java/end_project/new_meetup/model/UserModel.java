@@ -24,10 +24,10 @@ public class UserModel {
     @Column(name = "password_hash")
     String passwordHash;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<RoleModel> roles;
 
-    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL )
     private Set<EventModel> events;
 
     @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL)
