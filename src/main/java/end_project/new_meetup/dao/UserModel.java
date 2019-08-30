@@ -17,7 +17,7 @@ public class UserModel {
     @Column(name = "name", unique = true)
     String name;
 
-    @Column(name = "emial", unique = true)
+    @Column(name = "email", unique = true)
     String email;
 
     @Column(name = "password_hash")

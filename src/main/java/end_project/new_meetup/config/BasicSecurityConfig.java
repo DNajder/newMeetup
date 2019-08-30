@@ -26,9 +26,11 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home", "home").authenticated()
                 .anyRequest().permitAll()
                 .and()
+                .csrf().disable().headers().frameOptions().disable()
+                .and()
                 .formLogin().loginPage("/login")
                 .loginProcessingUrl("/login-process")
-                .usernameParameter("emial")
+                .usernameParameter("email")
                 .passwordParameter("password")
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/home");

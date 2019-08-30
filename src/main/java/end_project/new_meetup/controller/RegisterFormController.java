@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class RegisterFormController {
 
-   private final UserRepository userRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping({"/registration", "registration"})
@@ -27,17 +27,21 @@ public class RegisterFormController {
         model.addAttribute("userRegisterDTO", userRegisterDTO);
         return "registerForm";
     }
+
     @PostMapping({"/registration", "registration"})
     public String UserRegisterDtoExtender(@ModelAttribute @Valid UserRegisterDTO userRegisterDTO, BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors()){
+        System.out.println(userRegisterDTO);
+        if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        UserModel userModel= new UserModel();
+        UserModel userModel = new UserModel();
         userModel.setName(userRegisterDTO.getName());
         userModel.setEmail(userRegisterDTO.getEmail());
         userModel.setPasswordHash(passwordEncoder.encode(userRegisterDTO.getPassword()));
-           return "redirect:/registrationSuccess";
+        userRepository.save(userModel);
+
+        return "redirect:/registrationSuccess";
     }
 }
