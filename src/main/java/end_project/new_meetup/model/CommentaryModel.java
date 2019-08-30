@@ -2,7 +2,6 @@ package end_project.new_meetup.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ValueGenerationType;
 
 import javax.persistence.*;
 

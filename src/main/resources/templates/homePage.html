@@ -7,6 +7,13 @@
 </head>
 <body>
 <h1> -= Welcome =-</h1>
+<br>
+<a href="event" class="btn btn-info" role="button">Dodaj wydażenie</a>
+<br>
+<form method="post" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
 <th:block th:replace="~{includes/commonScripts::script}"></th:block>
+
 </body>
 </html>

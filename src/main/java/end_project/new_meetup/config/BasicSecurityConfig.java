@@ -23,7 +23,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/home", "home").authenticated()
+                .antMatchers("/home", "home", "/event", "event").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable().headers().frameOptions().disable()
@@ -33,7 +33,9 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/home");
+                .defaultSuccessUrl("/home")
+                .and()
+                .logout().logoutSuccessUrl("/");
     }
 
     @Override
