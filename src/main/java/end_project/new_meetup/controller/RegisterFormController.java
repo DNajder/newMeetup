@@ -1,10 +1,9 @@
 package end_project.new_meetup.controller;
 
-import end_project.new_meetup.dao.UserModel;
 import end_project.new_meetup.dto.UserRegisterDTO;
+import end_project.new_meetup.mapper.UserRegisterToUserModelMapper;
 import end_project.new_meetup.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +18,7 @@ import javax.validation.Valid;
 public class RegisterFormController {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserRegisterToUserModelMapper userRegisterToUserModelMapper;
 
     @GetMapping({"/registration", "registration"})
     public String showUserRegisterForm(Model model) {
@@ -35,12 +34,7 @@ public class RegisterFormController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
-        UserModel userModel = new UserModel();
-        userModel.setName(userRegisterDTO.getName());
-        userModel.setEmail(userRegisterDTO.getEmail());
-        userModel.setPasswordHash(passwordEncoder.encode(userRegisterDTO.getPassword()));
-        userRepository.save(userModel);
+        userRepository.save(userRegisterToUserModelMapper.convert(userRegisterDTO));
 
         return "redirect:/registrationSuccess";
     }
