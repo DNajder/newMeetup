@@ -1,6 +1,6 @@
 package end_project.new_meetup.mapper;
 
-import end_project.new_meetup.dao.UserModel;
+import end_project.new_meetup.model.UserModel;
 import end_project.new_meetup.dto.UserRegisterDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

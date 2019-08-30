@@ -1,4 +1,4 @@
-package end_project.new_meetup.dao;
+package end_project.new_meetup.model;
 
 import lombok.Data;
 
@@ -12,6 +12,7 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     Long id;
 
     @Column(name = "name", unique = true)
@@ -25,5 +26,11 @@ public class UserModel {
 
     @ManyToMany
     private Set<RoleModel> roles;
+
+    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL)
+    private Set<EventModel> events;
+
+    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL)
+    private Set<CommentaryModel> commentary;
 
 }

@@ -1,10 +1,9 @@
 package end_project.new_meetup.service;
 
-import end_project.new_meetup.dao.UserModel;
+import end_project.new_meetup.model.UserModel;
 import end_project.new_meetup.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

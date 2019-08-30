@@ -1,4 +1,4 @@
-package end_project.new_meetup.dao;
+package end_project.new_meetup.model;
 
 
 import lombok.Getter;
@@ -19,4 +19,5 @@ public class RoleModel {
     @Column(name = "role_name")
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
+
 }
