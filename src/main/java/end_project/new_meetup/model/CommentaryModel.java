@@ -2,7 +2,6 @@ package end_project.new_meetup.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ValueGenerationType;
 
 import javax.persistence.*;
 
@@ -17,14 +16,13 @@ public class CommentaryModel {
     @Column(name = "commentary_id")
     private Long id;
 
+    @Lob
     @Column(name = "context")
     private String description;
 
-
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "event_id")
     private EventModel eventModel;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")

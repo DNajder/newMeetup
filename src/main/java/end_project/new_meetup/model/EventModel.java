@@ -24,7 +24,7 @@ public class EventModel {
     @Column(name = "even_duration")
     private LocalDate evenDuration;
 
-
+    @Lob
     @Column(name = "description")
     private String description;
 
