@@ -1,8 +1,7 @@
 package end_project.new_meetup.controller;
 
 import end_project.new_meetup.dto.UserRegisterDTO;
-import end_project.new_meetup.mapper.UserRegisterToUserModelMapper;
-import end_project.new_meetup.repository.UserRepository;
+import end_project.new_meetup.converters.UserRegisterToUserModelConverter;
 import end_project.new_meetup.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import javax.validation.Valid;
 public class RegisterFormController {
 
     private final UserService userService;
-    private final UserRegisterToUserModelMapper userRegisterToUserModelMapper;
+    private final UserRegisterToUserModelConverter userRegisterToUserModelConverter;
 
     @GetMapping({"/registration", "registration"})
     public String showUserRegisterForm(Model model) {
@@ -35,7 +34,7 @@ public class RegisterFormController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        userService.saveUser(userRegisterToUserModelMapper.convert(userRegisterDTO));
+        userService.saveUser(userRegisterToUserModelConverter.convert(userRegisterDTO));
 
         return "redirect:/registrationSuccess";
     }

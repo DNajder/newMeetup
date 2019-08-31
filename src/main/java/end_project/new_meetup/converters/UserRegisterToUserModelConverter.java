@@ -1,4 +1,4 @@
-package end_project.new_meetup.mapper;
+package end_project.new_meetup.converters;
 
 import end_project.new_meetup.model.UserModel;
 import end_project.new_meetup.dto.UserRegisterDTO;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 //@Getter
 @Component
 @RequiredArgsConstructor
-public class UserRegisterToUserModelMapper {
+public class UserRegisterToUserModelConverter {
 
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;

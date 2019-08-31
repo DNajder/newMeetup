@@ -25,8 +25,11 @@ public class EventModel {
     @JoinColumn(name = "user_id")
     private UserModel creator;
 
-    @Column(name = "even_duration")
-    private LocalDate evenDuration;
+    @Column(name = "even_start")
+    private LocalDate evenStart;
+
+    @Column(name = "even_end")
+    private LocalDate evenEnd;
 
     @Lob
     @Column(name = "description")
