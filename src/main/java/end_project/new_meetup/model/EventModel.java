@@ -21,6 +21,10 @@ public class EventModel {
     @Column(name = "title")
     private String title;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserModel creator;
+
     @Column(name = "even_duration")
     private LocalDate evenDuration;
 
@@ -28,11 +32,7 @@ public class EventModel {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserModel userModel;
-
     @OneToMany(mappedBy = "eventModel", cascade = CascadeType.ALL)
-    private Set<CommentaryModel>commentary;
+    private Set<CommentaryModel> commentary;
 
 }

@@ -16,4 +16,11 @@ public class HomePageController {
     public String viewHomePage(){
         return "homePage";
     }
+
+//    inaczej rozwiazanie
+//    @GetMapping({"/home", "home"})
+//    public String viewHomePage(Authentication authentication){
+//        authentication.getName();
+//        return "homePage";
+//    }
 }

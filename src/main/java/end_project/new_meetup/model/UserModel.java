@@ -1,10 +1,13 @@
 package end_project.new_meetup.model;
 
-import lombok.Data;
+import end_project.new_meetup.service.RoleService;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.event.EventListener;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,13 +30,20 @@ public class UserModel {
     @Column(name = "password_hash")
     String passwordHash;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<RoleModel> roles;
+    @ManyToMany
+    private Set<RoleModel> roles =new HashSet<>();
 
-    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL )
-    private Set<EventModel> events;
+    @ManyToMany
+    private Set<EventModel> events = new HashSet<>();
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    private Set<EventModel> myEvents = new HashSet<>();
 
     @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL)
-    private Set<CommentaryModel> commentary;
+    private Set<CommentaryModel> commentary = new HashSet<>();
+
+    public void addRole(RoleModel roleModel) {
+        roles.add(roleModel);
+    }
 
 }
