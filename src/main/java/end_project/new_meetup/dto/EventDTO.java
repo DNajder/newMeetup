@@ -17,10 +17,10 @@ public class EventDTO {
     @NotBlank(message = "Musisz podać tytuł wydażenia")
     private String title;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate evenStart;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate evenEnd;
 
     @NotBlank(message = "Podaj wyczerpujący opis")

@@ -30,4 +30,10 @@ public class UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+
+    public Optional<UserModel> findUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
+    }
+
 }

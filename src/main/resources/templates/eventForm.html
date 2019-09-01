@@ -15,19 +15,17 @@
     </div>
     <div class="form-group">
         <label for="StartData">Data rozpoczęcia wydarzenia</label>
-        <input type="date" class="form-control" id="StartData" name="evenStart" placeholder="dd.MM.yyyy" th:field="*{evenStart}">
+        <input type="date" class="form-control" id="StartData" name="evenStart" placeholder="dd-MM-yyyy" th:field="*{evenStart}">
         <span th:errors="*{evenStart}">Invalid username</span>
-        <small class="Help">Poprawny format daty to dd.MM.yyyy.</small>
     </div>
     <div class="form-group">
-        <label for="EndData">Data zakończenia wydażenia</label>
-        <input type="date" class="form-control" id="EndData" name="evenEnd" placeholder="dd.MM.yyyy" th:field="*{evenEnd}">
+        <label for="EndData">Data zakończenia wydarzenia</label>
+        <input type="date" class="form-control" id="EndData" name="evenEnd" placeholder="dd-MM-yyyy" th:field="*{evenEnd}">
         <span th:errors="*{evenEnd}">Invalid username</span>
-        <small class="Help">Poprawny format daty to dd.MM.yyyy.</small>
     </div>
     <div class="form-group">
-        <label for="opis">Opis Wydażenia</label>
-        <input type="text" class="form-control" id="opis" name="description" placeholder="Dokłądny opis wydarzenia" th:field="*{description}">
+        <label for="opis">Opis Wydarzenia</label>
+        <input type="text" class="form-control" id="opis" name="description" placeholder="Opis wydarzenia" th:field="*{description}">
         <span th:errors="*{description}">Invalid username</span>
 
     </div>

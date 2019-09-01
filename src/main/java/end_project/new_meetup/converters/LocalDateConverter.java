@@ -1,11 +1,15 @@
 package end_project.new_meetup.converters;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import java.sql.Date;
 import java.time.LocalDate;
 
 //@SuppressWarnings("UnusedDeclaration")
-//@Converter(autoApply = true)
+@Converter(autoApply = true)
+//@Component
 public class LocalDateConverter implements AttributeConverter<LocalDate, Date> {
 
 
