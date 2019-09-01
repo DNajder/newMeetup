@@ -17,7 +17,6 @@ public class EventConverter {
         this.userContextService = userContextService;
     }
 
-
     public EventModel converDtoToModel(EventDTO eventDTO){
         final EventModel eventModel = new EventModel();
         eventModel.setTitle(eventDTO.getTitle());
@@ -26,5 +25,13 @@ public class EventConverter {
         eventModel.setDescription(eventDTO.getDescription());
         eventModel.setCreator(userService.findUserByEmail(userContextService.getLogedUserName()).orElseThrow(() -> new IllegalArgumentException()));
         return eventModel;
+    }
+    public EventDTO converModelToDto(EventModel eventModel){
+        final EventDTO eventDTO= new EventDTO();
+        eventDTO.setTitle(eventModel.getTitle());
+        eventDTO.setEvenStart(eventModel.getEvenStart());
+        eventDTO.setEvenEnd(eventModel.getEvenEnd());
+        eventDTO.setDescription(eventModel.getDescription());
+        return eventDTO;
     }
 }

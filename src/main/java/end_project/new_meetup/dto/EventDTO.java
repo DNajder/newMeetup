@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +27,5 @@ public class EventDTO {
     @NotBlank(message = "Podaj wyczerpujący opis")
     @Size(min = 20)
     private String description;
+
 }

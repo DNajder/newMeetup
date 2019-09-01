@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Meetup</title>
+    <th:block th:replace="~{includes/commonScripts::head}"></th:block>
+</head>
+<body>
+
+<form method="get" th:action="@{/search}">
+    <div class="form-group">
+        <input type="text" class="form-control" id="title" name="title" placeholder="czego szukasz??">
+    </div>
+    <button type="submit" class="btn btn-primary">Wyszukaj</button>
+</form>
+
+<th:block th:replace="~{includes/commonScripts::script}"></th:block>
+</body>
+</html>
