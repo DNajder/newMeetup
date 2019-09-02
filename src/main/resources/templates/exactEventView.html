@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org/">
+html lang="pl" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Meetup</title>
@@ -7,12 +7,12 @@
 </head>
 <body>
 <header>
-<form method="get" th:action="@{/search}">
-    <div class="form-group">
-        <input type="text" class="form-control" id="title" name="title" placeholder="czego szukasz??">
-    </div>
-    <button type="submit" class="btn btn-primary">Wyszukaj</button>
-</form>
+    <form method="get" th:action="@{/search}">
+        <div class="form-group">
+            <input type="text" class="form-control" id="title" name="title" placeholder="czego szukasz??">
+        </div>
+        <button type="submit" class="btn btn-primary">Wyszukaj</button>
+    </form>
 </header>
 <div th:unless="${#lists.isEmpty(eventSearchDTOS)}">
     <h2>Wyszukiwane eventy</h2>
@@ -25,7 +25,7 @@
 
         </tr>
         <tr th:each="event : ${eventSearchDTOS}">
-            <td><a th:action="@{/search/exact}" th:text="${event.getTitle()}"></a></td>
+            <td th:text="${event.getTitle()}"></td>
             <td th:text="${event.getEvenStart()}"></td>
             <td th:text="${event.getEvenEnd()}"></td>
             <td th:text="${event.getDescription()}"></td>

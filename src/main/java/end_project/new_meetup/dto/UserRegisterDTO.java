@@ -25,7 +25,7 @@ public class UserRegisterDTO {
     String email;
 
     @NotBlank(message = "WPISZ POPRAWNE HASŁO")
-//    @Size(min = 8, max = 30)
+    @Size(min = 1, max = 30)
     String password;
 
 }
