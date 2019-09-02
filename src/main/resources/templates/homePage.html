@@ -33,8 +33,8 @@
             <th>opis wydarzenia</th>
 
         </tr>
-        <tr th:each="event : ${eventActiveDTOS}">
-            <td th:text="${event.getTitle()}"></td>
+        <tr th:each="event,iter : ${eventActiveDTOS}">
+            <td><a th:href="@{/exact(id=${iter.index})}" th:text="${event.getTitle()}"></a></td>
             <td th:text="${event.getEvenStart()}"></td>
             <td th:text="${event.getEvenEnd()}"></td>
             <td th:text="${event.getDescription().substring(0,49)}"></td>

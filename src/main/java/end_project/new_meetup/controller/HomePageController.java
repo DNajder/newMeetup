@@ -1,14 +1,19 @@
 package end_project.new_meetup.controller;
 
+import end_project.new_meetup.dto.EventDTO;
 import end_project.new_meetup.service.EventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class HomePageController {
 
    private final EventService eventService;
+    public static List<EventDTO> listOfHomeEvents = new ArrayList<>();
 
     public HomePageController(EventService eventService) {
         this.eventService = eventService;
@@ -23,7 +28,10 @@ public class HomePageController {
 
     @GetMapping({"/home", "home"})
     public String listOfEvent(Model model) {
-        model.addAttribute("eventActiveDTOS", eventService.displayActiveEventList());
+
+        listOfHomeEvents = eventService.displayActiveEventList();
+
+        model.addAttribute("eventActiveDTOS", listOfHomeEvents);
         return "homePage";
     }
 }

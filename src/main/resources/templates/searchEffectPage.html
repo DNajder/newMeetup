@@ -24,8 +24,8 @@
             <th>opis wydarzenia</th>
 
         </tr>
-        <tr th:each="event : ${eventSearchDTOS}">
-            <td><a th:action="@{/search/exact}" th:text="${event.getTitle()}"></a></td>
+        <tr th:each="event,iter : ${eventSearchDTOS}">
+            <td><a th:href="@{/exact(id=${iter.index})}" th:text="${event.getTitle()}"></a></td>
             <td th:text="${event.getEvenStart()}"></td>
             <td th:text="${event.getEvenEnd()}"></td>
             <td th:text="${event.getDescription()}"></td>
