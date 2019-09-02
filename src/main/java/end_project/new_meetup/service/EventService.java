@@ -28,18 +28,27 @@ public class EventService {
     }
 
 
-    public List<EventDTO> displayEventList() {
+    public List<EventDTO> displayActiveEventList() {
         List<EventModel> eventModels = new ArrayList<>();
-        eventRepository.findAll().forEach(e -> eventModels.add(e));
+        eventRepository.findAll().forEach(eventModels::add);
 
 
-        List<EventDTO> eventDTOS = eventModels.stream()
-                .map(e -> eventConverter.converModelToDto(e))
+        return eventModels.stream()
+                .map(eventConverter::converModelToDto)
                 .filter(e -> e.getEvenEnd().compareTo(LocalDate.now()) > 0)
-                .sorted(Comparator.comparing(e->e.getEvenStart()))
+                .sorted(Comparator.comparing(EventDTO::getEvenStart))
                 .collect(Collectors.toList());
+    }
 
-        return eventDTOS;
+    public List<EventDTO> displaySearchEventList(String parameter) {
+        List<EventModel> eventModels = new ArrayList<>();
+        eventRepository.findAllByTitleQuery(parameter).forEach(eventModels::add);
+
+        return eventModels.stream()
+                .map(eventConverter::converModelToDto)
+                .filter(e->e.getTitle()!= null)
+                .sorted(Comparator.comparing(EventDTO::getEvenStart))
+                .collect(Collectors.toList());
     }
 }
 

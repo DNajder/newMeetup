@@ -23,7 +23,7 @@ public class HomePageController {
 
     @GetMapping({"/home", "home"})
     public String listOfEvent(Model model) {
-        model.addAttribute("eventDTOS", eventService.displayEventList());
+        model.addAttribute("eventActiveDTOS", eventService.displayActiveEventList());
         return "homePage";
     }
 }

@@ -6,14 +6,32 @@
     <th:block th:replace="~{includes/commonScripts::head}"></th:block>
 </head>
 <body>
-
+<header>
 <form method="get" th:action="@{/search}">
     <div class="form-group">
         <input type="text" class="form-control" id="title" name="title" placeholder="czego szukasz??">
     </div>
     <button type="submit" class="btn btn-primary">Wyszukaj</button>
 </form>
+</header>
+<div th:unless="${#lists.isEmpty(eventSearchDTOS)}">
+    <h2>Obecne i nadchodzące evnty</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Tytuł wydarzenia</th>
+            <th>rozpoczęcie wydarzenia</th>
+            <th>zakonczenie wydarzenia</th>
+            <th>opis wydarzenia</th>
 
+        </tr>
+        <tr th:each="event : ${eventSearchDTOS}">
+            <td th:text="${event.getTitle()}"></td>
+            <td th:text="${event.getEvenStart()}"></td>
+            <td th:text="${event.getEvenEnd()}"></td>
+            <td th:text="${event.getDescription()}"></td>
+        </tr>
+    </table>
+</div>
 <th:block th:replace="~{includes/commonScripts::script}"></th:block>
 </body>
 </html>

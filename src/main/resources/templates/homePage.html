@@ -23,7 +23,7 @@
     </form>
 </div>
 </header>
-<div th:unless="${#lists.isEmpty(eventDTOS)}">
+<div th:unless="${#lists.isEmpty(eventActiveDTOS)}">
     <h2>Obecne i nadchodzące evnty</h2>
     <table class="table table-striped">
         <tr>
@@ -33,7 +33,7 @@
             <th>opis wydarzenia</th>
 
         </tr>
-        <tr th:each="event : ${eventDTOS}">
+        <tr th:each="event : ${eventActiveDTOS}">
             <td th:text="${event.getTitle()}"></td>
             <td th:text="${event.getEvenStart()}"></td>
             <td th:text="${event.getEvenEnd()}"></td>
