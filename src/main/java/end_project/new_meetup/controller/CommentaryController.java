@@ -3,8 +3,6 @@ package end_project.new_meetup.controller;
 
 import end_project.new_meetup.converters.CommentaryConverter;
 import end_project.new_meetup.dto.CommentaryDTO;
-import end_project.new_meetup.dto.EventDTO;
-import end_project.new_meetup.repository.CommentaryRepository;
 import end_project.new_meetup.service.CommentaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

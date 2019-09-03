@@ -17,7 +17,8 @@ import java.util.List;
 public class SearchPageController {
 
     private final EventService eventService;
-    public static List<EventDTO> listOfFoundEvents;
+    private static List<EventDTO> listOfFoundEvents;
+    EventDTO exactEvent;
 
     public SearchPageController(EventService eventService) {
         this.eventService = eventService;
@@ -36,17 +37,16 @@ public class SearchPageController {
     }
 
     @GetMapping({"/exact", "exact"})
-    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model comModel) throws ServletException, IOException {
-        List<EventDTO> listOfExactEvent;
-        if (request.getParameter("hp").equals("true")) {
-            listOfExactEvent = HomePageController.listOfHomeEvents;
-        } else {
-            listOfExactEvent = listOfFoundEvents;
-        }
+    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model comModel) {
         int idParam = Integer.parseInt(request.getParameter("id"));
+        if (request.getParameter("hp").equals("true")) {
+            exactEvent = HomePageController.listOfHomeEvents.get(idParam);
+        } else {
+            exactEvent = listOfFoundEvents.get(idParam);
+        }
         System.out.println(idParam);
-        exactModel.addAttribute("exactEvent", listOfExactEvent.get(idParam));
-        System.out.println(listOfExactEvent.get(idParam).toString());
+        exactModel.addAttribute("exactEvent", exactEvent);
+        System.out.println(exactEvent.toString());
 
         CommentaryDTO commentaryDTO = new CommentaryDTO();
         exactModel.addAttribute("commentaryDTO", commentaryDTO);
