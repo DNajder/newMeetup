@@ -13,7 +13,7 @@ import java.util.List;
 public class HomePageController {
 
    private final EventService eventService;
-    public static List<EventDTO> listOfHomeEvents = new ArrayList<>();
+    public static List<EventDTO> listOfHomeEvents;
 
     public HomePageController(EventService eventService) {
         this.eventService = eventService;
@@ -32,6 +32,7 @@ public class HomePageController {
         listOfHomeEvents = eventService.displayActiveEventList();
 
         model.addAttribute("eventActiveDTOS", listOfHomeEvents);
+        System.out.println(listOfHomeEvents.toString());
         return "homePage";
     }
 }

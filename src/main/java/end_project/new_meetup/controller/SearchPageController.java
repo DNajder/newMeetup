@@ -17,7 +17,7 @@ import java.util.List;
 public class SearchPageController {
 
     private final EventService eventService;
-    public static List<EventDTO> listOfFoundEvents = new ArrayList<>();
+    public static List<EventDTO> listOfFoundEvents;
 
     public SearchPageController(EventService eventService) {
         this.eventService = eventService;
@@ -36,11 +36,17 @@ public class SearchPageController {
     }
 
     @GetMapping({"/exact", "exact"})
-    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException{
-       int idParam = Integer.parseInt(request.getParameter("id"));
+    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+        List<EventDTO> listOfExactEvent;
+        if (request.getParameter("hp").equals("true")) {
+            listOfExactEvent = HomePageController.listOfHomeEvents;
+        } else {
+            listOfExactEvent = listOfFoundEvents;
+        }
+        int idParam = Integer.parseInt(request.getParameter("id"));
         System.out.println(idParam);
-        model.addAttribute("exactEvent", listOfFoundEvents.get(idParam));
-        System.out.println(listOfFoundEvents.get(idParam).toString());
+        model.addAttribute("exactEvent", listOfExactEvent.get(idParam));
+        System.out.println(listOfExactEvent.get(idParam).toString());
         return "exactEventView";
     }
 }

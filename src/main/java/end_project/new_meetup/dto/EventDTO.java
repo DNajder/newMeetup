@@ -15,6 +15,9 @@ import java.util.List;
 @ToString
 public class EventDTO {
 
+    
+    private Long id;
+
     @NotBlank(message = "Musisz podać tytuł wydażenia")
     private String title;
 

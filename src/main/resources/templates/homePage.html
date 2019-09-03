@@ -34,7 +34,7 @@
 
         </tr>
         <tr th:each="event,iter : ${eventActiveDTOS}">
-            <td><a th:href="@{/exact(id=${iter.index})}" th:text="${event.getTitle()}"></a></td>
+            <td><a th:href="@{/exact(id=${iter.index},hp=true)}" th:text="${event.getTitle()}"></a></td>
             <td th:text="${event.getEvenStart()}"></td>
             <td th:text="${event.getEvenEnd()}"></td>
             <td th:text="${event.getDescription().substring(0,49)}"></td>
