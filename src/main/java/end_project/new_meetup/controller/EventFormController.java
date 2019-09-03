@@ -35,7 +35,7 @@ public class EventFormController {
         if (bindingResult.hasErrors()) {
             return "event";
         }
-        eventService.saveEvent(eventConverter.converDtoToModel(eventDTO));
+        eventService.saveEvent(eventConverter.convertDtoToModel(eventDTO));
 
         return "redirect:/home";
     }

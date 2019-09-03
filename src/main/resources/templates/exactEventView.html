@@ -32,6 +32,21 @@
         </tr>
     </table>
 </div>
+<div class="comment">
+    <h2>komentarze</h2>
+    <div class="add-comm">
+    <form method="post" th:action="@{/comment(eid=${exactEvent.getId()})}" th:object="${commentaryDTO}">
+        <div class="form-group">
+            <input type="text" class="form-control" id="description"  th:field="*{description}"name="description" placeholder="Dodaj swój komentarz">
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj</button>
+    </form>
+    </div>
+    <div class="display-comm">
+
+
+    </div>
+</div>
 <th:block th:replace="~{includes/commonScripts::script}"></th:block>
 </body>
 </html>

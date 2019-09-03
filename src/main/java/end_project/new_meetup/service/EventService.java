@@ -26,15 +26,16 @@ public class EventService {
     public EventModel saveEvent(EventModel eventModel) {
         return eventRepository.save(eventModel);
     }
+    public EventModel findEventById(Long id){
+        return eventRepository.getOne(id);
+    }
 
 
     public List<EventDTO> displayActiveEventList() {
-        List<EventModel> eventModels = new ArrayList<>();
-        eventRepository.findAll().forEach(eventModels::add);
-
+        List<EventModel> eventModels = new ArrayList<>(eventRepository.findAll());
 
         return eventModels.stream()
-                .map(eventConverter::converModelToDto)
+                .map(eventConverter::convertModelToDto)
                 .filter(e -> e.getEvenEnd().compareTo(LocalDate.now()) > 0)
                 .sorted(Comparator.comparing(EventDTO::getEvenStart))
                 .collect(Collectors.toList());
@@ -45,7 +46,7 @@ public class EventService {
         eventRepository.findAllByTitleQuery(parameter).forEach(eventModels::add);
 
         return eventModels.stream()
-                .map(eventConverter::converModelToDto)
+                .map(eventConverter::convertModelToDto)
                 .filter(e->e.getTitle()!= null)
                 .sorted(Comparator.comparing(EventDTO::getEvenStart))
                 .collect(Collectors.toList());

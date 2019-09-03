@@ -8,14 +8,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
 @ToString
 public class EventDTO {
 
-    
+
     private Long id;
 
     @NotBlank(message = "Musisz podać tytuł wydażenia")

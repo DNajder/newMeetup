@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,13 +18,6 @@ public class HomePageController {
         this.eventService = eventService;
     }
 
-    //    inaczej rozwiazanie
-//    @GetMapping({"/home", "home"})
-//    public String viewHomePage(Authentication authentication){
-//        authentication.getName();
-//        return "homePage";
-//    }
-
     @GetMapping({"/home", "home"})
     public String listOfEvent(Model model) {
 
@@ -36,3 +28,11 @@ public class HomePageController {
         return "homePage";
     }
 }
+
+//    inaczej rozwiazanie pobierania kontextu użytkownika u mnie wyniesione do osobnej klasy userContext
+//    @GetMapping({"/home", "home"})
+//    public String viewHomePage(Authentication authentication){
+//        authentication.getName();
+//        return "homePage";
+//    }@Query(value="select * from event where title LIKE :parameter",nativeQuery = true)
+//    List<EventModel> findAllByTitleQuery(@Param("parameter") String parameter);

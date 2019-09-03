@@ -1,5 +1,6 @@
 package end_project.new_meetup.controller;
 
+import end_project.new_meetup.dto.CommentaryDTO;
 import end_project.new_meetup.dto.EventDTO;
 import end_project.new_meetup.service.EventService;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,7 +36,7 @@ public class SearchPageController {
     }
 
     @GetMapping({"/exact", "exact"})
-    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model comModel) throws ServletException, IOException {
         List<EventDTO> listOfExactEvent;
         if (request.getParameter("hp").equals("true")) {
             listOfExactEvent = HomePageController.listOfHomeEvents;
@@ -45,11 +45,20 @@ public class SearchPageController {
         }
         int idParam = Integer.parseInt(request.getParameter("id"));
         System.out.println(idParam);
-        model.addAttribute("exactEvent", listOfExactEvent.get(idParam));
+        exactModel.addAttribute("exactEvent", listOfExactEvent.get(idParam));
         System.out.println(listOfExactEvent.get(idParam).toString());
+
+        CommentaryDTO commentaryDTO = new CommentaryDTO();
+        exactModel.addAttribute("commentaryDTO", commentaryDTO);
+
         return "exactEventView";
     }
 }
+
+
+
+
+
 //try (Stream<User> stream = repository.findAllByCustomQueryAndStream()) {
 //        stream.forEach(…);
 
