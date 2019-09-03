@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,6 +20,9 @@ public class CommentaryModel {
     @Lob
     @Column(name = "context")
     private String description;
+
+    @Column(name = "add_Time")
+    private LocalDateTime addTime;
 
     @ManyToOne
     @JoinColumn(name = "event_id")

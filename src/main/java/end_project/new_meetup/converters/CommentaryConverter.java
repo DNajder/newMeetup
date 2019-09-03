@@ -8,6 +8,8 @@ import end_project.new_meetup.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 
 public class CommentaryConverter {
@@ -26,7 +28,15 @@ public class CommentaryConverter {
         final CommentaryModel commentaryModel = new CommentaryModel();
         commentaryModel.setDescription(commentaryDTO.getDescription());
         commentaryModel.setEventModel(eventService.findEventById(eventId));
+        commentaryModel.setAddTime(LocalDateTime.now());
         commentaryModel.setUserModel(userService.findUserByEmail(userContextService.getLogedUserName()).orElseThrow(() -> new IllegalArgumentException()));
         return commentaryModel;
+    }
+
+    public CommentaryDTO convertModelToDTO (CommentaryModel commentaryModel){
+        final CommentaryDTO commentaryDTO = new CommentaryDTO();
+        commentaryDTO.setDescription(commentaryModel.getDescription());
+        commentaryDTO.setAddTime(commentaryModel.getAddTime());
+        return commentaryDTO;
     }
 }

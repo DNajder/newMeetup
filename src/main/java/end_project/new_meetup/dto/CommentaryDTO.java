@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,4 +16,6 @@ public class CommentaryDTO {
     @NotBlank(message = "Komentarz nie może być pusty")
     @Size(max = 500)
     private String description;
+
+    private LocalDateTime addTime;
 }

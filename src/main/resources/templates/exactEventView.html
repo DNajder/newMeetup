@@ -32,19 +32,31 @@
         </tr>
     </table>
 </div>
+<br><br>
 <div class="comment">
-    <h2>komentarze</h2>
+    <h3>komentarze</h3>
     <div class="add-comm">
-    <form method="post" th:action="@{/comment(eid=${exactEvent.getId()})}" th:object="${commentaryDTO}">
-        <div class="form-group">
-            <input type="text" class="form-control" id="description"  th:field="*{description}"name="description" placeholder="Dodaj swój komentarz">
-        </div>
-        <button type="submit" class="btn btn-primary">Dodaj</button>
-    </form>
+        <form method="post" th:action="@{/comment(eid=${exactEvent.getId()})}" th:object="${commentaryDTO}">
+            <div class="form-group">
+                <input type="text" class="form-control" id="description" th:field="*{description}" name="description"
+                       placeholder="Dodaj swój komentarz">
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
     </div>
-    <div class="display-comm">
-
-
+    <br>
+    <div class="display-comm" th:unless="${#lists.isEmpty(commentList)}">
+        <table class="table table-striped">
+            <tr>
+                <th>data dodania komentarza</th>
+                <th>treść komentarza</th>
+            </tr>
+            <tr th:each="comment,iter : ${commentList}">
+<!--                <td><a th:href="@{/exact(id=${iter.index},hp=true)}" th:text="${event.getTitle()}"></a></td>-->
+                <td th:text="${comment.getAddTime()}"></td>
+                <td th:text="${comment.getDescription()}"></td>
+            </tr>
+        </table>
     </div>
 </div>
 <th:block th:replace="~{includes/commonScripts::script}"></th:block>

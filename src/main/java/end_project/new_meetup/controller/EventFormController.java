@@ -33,7 +33,7 @@ public class EventFormController {
 
         System.out.println(eventDTO);
         if (bindingResult.hasErrors()) {
-            return "event";
+            return "eventForm";
         }
         eventService.saveEvent(eventConverter.convertDtoToModel(eventDTO));
 
