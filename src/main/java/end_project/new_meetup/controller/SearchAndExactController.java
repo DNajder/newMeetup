@@ -3,8 +3,12 @@ package end_project.new_meetup.controller;
 import end_project.new_meetup.converters.CommentaryConverter;
 import end_project.new_meetup.dto.CommentaryDTO;
 import end_project.new_meetup.dto.EventDTO;
+import end_project.new_meetup.model.EventModel;
+import end_project.new_meetup.model.UserModel;
 import end_project.new_meetup.service.CommentaryService;
 import end_project.new_meetup.service.EventService;
+import end_project.new_meetup.service.UserContextService;
+import end_project.new_meetup.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,6 +34,8 @@ public class SearchAndExactController {
     private List<CommentaryDTO> commentList;
     private final CommentaryService commentaryService;
     private final CommentaryConverter commentaryConverter;
+    private final UserContextService userContextService;
+    private final UserService userService;
     private EventDTO exactEvent;
 
 
@@ -45,7 +52,7 @@ public class SearchAndExactController {
     }
 
     @GetMapping({"/exact", "exact"})
-    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel,Model commentModel, Model comModel) {
+    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model commentModel, Model comModel) {
         int idParam = Integer.parseInt(request.getParameter("id"));
         if (request.getParameter("hp").equals("true")) {
             exactEvent = HomePageController.listOfHomeEvents.get(idParam);
@@ -65,7 +72,7 @@ public class SearchAndExactController {
     }
 
     @PostMapping({"/comment", "comment"})
-    public String commentaryAdding (@ModelAttribute @Valid CommentaryDTO commentaryDTO, BindingResult bindingResult, HttpServletRequest request,Model exactModel, Model commentModel) {
+    public String commentaryAdding(@ModelAttribute @Valid CommentaryDTO commentaryDTO, BindingResult bindingResult, HttpServletRequest request, Model exactModel, Model commentModel) {
 
         System.out.println(commentaryDTO);
         if (bindingResult.hasErrors()) {
@@ -82,16 +89,24 @@ public class SearchAndExactController {
         return "exactEventView";
     }
 
+    @PostMapping({"/join", "join"})
+    public String memberManager(@ModelAttribute @Valid CommentaryDTO commentaryDTO, BindingResult bindingResult, HttpServletRequest request, Model exactModel, Model commentModel) {
 
+        UserModel joinUser = userService.findUserByEmail(userContextService.getLogedUserName()).get();
+       EventModel eventToJoin = eventService.findEventById(Long.parseLong(request.getParameter("eid")
+       ));
+        System.out.println(joinUser.toString());
+        System.out.println(eventToJoin.toString());
+        userService.saveUser(joinUser.addEvent(joinUser,eventToJoin));
 
+        exactModel.addAttribute("exactEvent", exactEvent);
+        commentModel.addAttribute("commentList", commentList);
+
+        return "exactEventView";
+    }
 
 
 }
-
-
-
-
-
 
 
 //try (Stream<User> stream = repository.findAllByCustomQueryAndStream()) {

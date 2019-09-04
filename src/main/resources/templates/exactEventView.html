@@ -32,6 +32,13 @@
         </tr>
     </table>
 </div>
+<div>
+    <p>Uczestnicy</p>
+    <form method="post" th:action="@{/join(eid=${exactEvent.getId()})}">
+        <button type="submit" class="btn btn-primary">Dołącz</button>
+        <button type="submit" class="btn btn-primary">Opuść</button>
+    </form>
+</div>
 <br><br>
 <div class="comment">
     <h3>komentarze</h3>
@@ -52,7 +59,7 @@
                 <th>treść komentarza</th>
             </tr>
             <tr th:each="comment,iter : ${commentList}">
-<!--                <td><a th:href="@{/exact(id=${iter.index},hp=true)}" th:text="${event.getTitle()}"></a></td>-->
+                <!--                <td><a th:href="@{/exact(id=${iter.index},hp=true)}" th:text="${event.getTitle()}"></a></td>-->
                 <td th:text="${comment.getAddTime()}"></td>
                 <td th:text="${comment.getDescription()}"></td>
             </tr>

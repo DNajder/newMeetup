@@ -45,5 +45,9 @@ public class UserModel {
     public void addRole(RoleModel roleModel) {
         roles.add(roleModel);
     }
+    public UserModel addEvent(UserModel userModel,EventModel eventModel){
+        userModel.events.add(eventModel);
+        return userModel;
+    }
 
 }
