@@ -33,11 +33,20 @@
     </table>
 </div>
 <div>
-    <p>Uczestnicy</p>
     <form method="post" th:action="@{/join(eid=${exactEvent.getId()})}">
-        <button type="submit" class="btn btn-primary">Dołącz</button>
-        <button type="submit" class="btn btn-primary">Opuść</button>
+        <button type="submit" class="btn btn-primary">Dołącz do wydarzenia</button>
+        <button type="submit" class="btn btn-primary">Opuść to wydarzenie</button>
     </form>
+</div>
+<br>
+<div th:unless="${#lists.isEmpty(joinUser)}">
+    <h2>Uczestnicy</h2>
+    <table class="table table-striped">
+        <tr th:each="user,iter : ${joinUser}">
+            <td th:text="${user.name}"></td>
+        </tr>
+    </table>
+    </table>
 </div>
 <br><br>
 <div class="comment">

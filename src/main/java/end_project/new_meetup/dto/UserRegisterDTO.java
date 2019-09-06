@@ -17,15 +17,15 @@ public class UserRegisterDTO {
 
     @NotBlank(message = "WPISZ NAZWĘ UŻTKOWNIKA")
     @Size(max = 50)
-    String name;
+    private String name;
 
     @NotBlank
     @Pattern(regexp = ".+@.+")
     @Email(message = "WPISZ POPRAWNY ADRES E-MAIL")
-    String email;
+    private String email;
 
     @NotBlank(message = "WPISZ POPRAWNE HASŁO")
     @Size(min = 1, max = 30)
-    String password;
+    private String password;
 
 }

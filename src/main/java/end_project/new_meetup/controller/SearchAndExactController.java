@@ -3,6 +3,7 @@ package end_project.new_meetup.controller;
 import end_project.new_meetup.converters.CommentaryConverter;
 import end_project.new_meetup.dto.CommentaryDTO;
 import end_project.new_meetup.dto.EventDTO;
+import end_project.new_meetup.dto.UserDTO;
 import end_project.new_meetup.model.EventModel;
 import end_project.new_meetup.model.UserModel;
 import end_project.new_meetup.service.CommentaryService;
@@ -23,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +32,7 @@ public class SearchAndExactController {
     private final EventService eventService;
     private static List<EventDTO> listOfFoundEvents;
     private List<CommentaryDTO> commentList;
+    private List<UserDTO> joinUserList;
     private final CommentaryService commentaryService;
     private final CommentaryConverter commentaryConverter;
     private final UserContextService userContextService;
@@ -52,7 +53,7 @@ public class SearchAndExactController {
     }
 
     @GetMapping({"/exact", "exact"})
-    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model commentModel, Model comModel) {
+    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model commentModel, Model comModel, Model joinUserModel) {
         int idParam = Integer.parseInt(request.getParameter("id"));
         if (request.getParameter("hp").equals("true")) {
             exactEvent = HomePageController.listOfHomeEvents.get(idParam);
@@ -60,7 +61,15 @@ public class SearchAndExactController {
             exactEvent = listOfFoundEvents.get(idParam);
         }
         System.out.println(idParam);
-        commentList = commentaryService.displayAllCommentBiEventId(request.getParameter("eid"));
+        String eventId = request.getParameter("eid");
+        System.out.println(eventId);
+
+        commentList = commentaryService.displayAllCommentBiEventId(eventId);
+        joinUserList = userService.dispalyUserByEventId(eventId);
+
+        System.out.println(joinUserList.toString());
+
+        joinUserModel.addAttribute("joinUser", joinUserList);
         exactModel.addAttribute("exactEvent", exactEvent);
         commentModel.addAttribute("commentList", commentList);
         System.out.println(exactEvent.toString());
@@ -72,7 +81,7 @@ public class SearchAndExactController {
     }
 
     @PostMapping({"/comment", "comment"})
-    public String commentaryAdding(@ModelAttribute @Valid CommentaryDTO commentaryDTO, BindingResult bindingResult, HttpServletRequest request, Model exactModel, Model commentModel) {
+    public String commentaryAdding(@ModelAttribute @Valid CommentaryDTO commentaryDTO, BindingResult bindingResult, HttpServletRequest request, Model exactModel, Model commentModel, Model joinUserModel) {
 
         System.out.println(commentaryDTO);
         if (bindingResult.hasErrors()) {
@@ -85,20 +94,26 @@ public class SearchAndExactController {
 
         exactModel.addAttribute("exactEvent", exactEvent);
         commentModel.addAttribute("commentList", commentList);
-
+        joinUserModel.addAttribute("joinUser", joinUserList);
         return "exactEventView";
     }
 
     @PostMapping({"/join", "join"})
-    public String memberManager(@ModelAttribute @Valid CommentaryDTO commentaryDTO, BindingResult bindingResult, HttpServletRequest request, Model exactModel, Model commentModel) {
+    public String memberManager(@ModelAttribute @Valid CommentaryDTO commentaryDTO, BindingResult bindingResult, HttpServletRequest request, Model exactModel, Model commentModel,Model joinUserModel) {
 
-        UserModel joinUser = userService.findUserByEmail(userContextService.getLogedUserName()).get();
-       EventModel eventToJoin = eventService.findEventById(Long.parseLong(request.getParameter("eid")
-       ));
+        String eventId = request.getParameter("eid");
+
+        UserModel joinUser = userService.findUserByEmail(userContextService.getLogedUserName()).orElseThrow(IllegalArgumentException::new);
+
+       EventModel eventToJoin = eventService.findEventById(Long.parseLong(eventId));
+
         System.out.println(joinUser.toString());
         System.out.println(eventToJoin.toString());
         userService.saveUser(joinUser.addEvent(joinUser,eventToJoin));
 
+        joinUserList = userService.dispalyUserByEventId(eventId);
+
+        joinUserModel.addAttribute("joinUser", joinUserList);
         exactModel.addAttribute("exactEvent", exactEvent);
         commentModel.addAttribute("commentList", commentList);
 
@@ -108,7 +123,7 @@ public class SearchAndExactController {
 
 }
 
-
+//
 //try (Stream<User> stream = repository.findAllByCustomQueryAndStream()) {
 //        stream.forEach(…);
 

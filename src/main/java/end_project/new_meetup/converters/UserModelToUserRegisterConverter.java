@@ -1,13 +1,15 @@
 package end_project.new_meetup.converters;
 
+import end_project.new_meetup.dto.UserDTO;
 import end_project.new_meetup.model.UserModel;
 import end_project.new_meetup.dto.UserRegisterDTO;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserModelToUserRegisterConverter implements Converter<UserModel, UserRegisterDTO> {
-    @Override
+public class UserModelToUserRegisterConverter {
+
+
     public UserRegisterDTO convert(UserModel userModel) {
         if (userModel == null) {
             return null;
@@ -17,6 +19,13 @@ public class UserModelToUserRegisterConverter implements Converter<UserModel, Us
         userRegisterDTO.setEmail(userModel.getEmail());
         userRegisterDTO.setPassword(userModel.getPasswordHash());
         return userRegisterDTO;
+    }
+    public UserDTO convertForJoinEventUser(UserModel userModel) {
+
+        final UserDTO userDTO= new UserDTO();
+        userDTO.setName(userModel.getName());
+        userDTO.setEmail(userModel.getEmail());
+        return userDTO;
     }
 
 }
