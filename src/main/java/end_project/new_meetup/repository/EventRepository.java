@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface EventRepository extends CrudRepository<EventModel, Long>, JpaRepository<EventModel, Long> {
 
+
     @Query(value="select * from event where title LIKE :parameter",nativeQuery = true)
     List<EventModel> findAllByTitleQuery(@Param("parameter") String parameter);
-
 
     //    @Query(value = "select e.title, e.even_start, e.even_end,description from event e where e.title LIKE ?1", nativeQuery = true)
 //    Stream<EventModel> findAlltitleQuery(String pattern);

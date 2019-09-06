@@ -1,14 +1,12 @@
 package end_project.new_meetup.converters;
 
 import end_project.new_meetup.dto.UserDTO;
-import end_project.new_meetup.model.UserModel;
 import end_project.new_meetup.dto.UserRegisterDTO;
-import org.springframework.core.convert.converter.Converter;
+import end_project.new_meetup.model.UserModel;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserModelToUserRegisterConverter {
-
 
     public UserRegisterDTO convert(UserModel userModel) {
         if (userModel == null) {
@@ -27,5 +25,4 @@ public class UserModelToUserRegisterConverter {
         userDTO.setEmail(userModel.getEmail());
         return userDTO;
     }
-
 }

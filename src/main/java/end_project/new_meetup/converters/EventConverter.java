@@ -35,4 +35,12 @@ public class EventConverter {
         eventDTO.setDescription(eventModel.getDescription());
         return eventDTO;
     }
+    public EventDTO convertModelApiDto(EventModel eventModel){
+        final EventDTO eventDTO= new EventDTO();
+        eventDTO.setTitle(eventModel.getTitle());
+        eventDTO.setEvenStart(eventModel.getEvenStart());
+        eventDTO.setEvenEnd(eventModel.getEvenEnd());
+        eventDTO.setDescription(eventModel.getDescription());
+        return eventDTO;
+    }
 }
