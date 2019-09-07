@@ -49,5 +49,9 @@ public class UserModel {
         userModel.events.add(eventModel);
         return userModel;
     }
+    public UserModel removeEvent(UserModel userModel,EventModel eventModel){
+        userModel.events.remove(eventModel);
+        return userModel;
+    }
 
 }

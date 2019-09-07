@@ -22,7 +22,6 @@
             <th>rozpoczęcie wydarzenia</th>
             <th>zakonczenie wydarzenia</th>
             <th>opis wydarzenia</th>
-
         </tr>
         <tr>
             <td th:text="${exactEvent.getTitle()}"></td>
@@ -33,9 +32,8 @@
     </table>
 </div>
 <div>
-    <form method="post" th:action="@{/join(eid=${exactEvent.getId()})}">
-        <button type="submit" class="btn btn-primary">Dołącz do wydarzenia</button>
-        <button type="submit" class="btn btn-primary">Opuść to wydarzenie</button>
+    <form method="post" th:action="@{/{switch}(eid=${exactEvent.getId()},switch = ${switchButton}? 'leave': 'join')} ">
+        <button type="submit" th:text="${switchButton} ? 'Opuść to wydarzenie' :'Dołącz do wydarzenia'" class="btn btn-primary"></button>
     </form>
 </div>
 <br>
@@ -45,7 +43,6 @@
         <tr th:each="user,iter : ${joinUser}">
             <td th:text="${user.name}"></td>
         </tr>
-    </table>
     </table>
 </div>
 <br><br>
@@ -68,7 +65,6 @@
                 <th>treść komentarza</th>
             </tr>
             <tr th:each="comment,iter : ${commentList}">
-                <!--                <td><a th:href="@{/exact(id=${iter.index},hp=true)}" th:text="${event.getTitle()}"></a></td>-->
                 <td th:text="${comment.getAddTime()}"></td>
                 <td th:text="${comment.getDescription()}"></td>
             </tr>
