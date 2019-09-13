@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org/">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org/"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Meetup</title>
@@ -7,7 +9,11 @@
 </head>
 <body>
 <header>
-    <form method="get" th:action="@{/search}">
+    <form method="get" th:action="@{/{inOut}(inOut=${userEmail==null}? 'login' : 'logout')}">
+        <button type="submit" th:text="${userEmail==null} ? 'Login' :${userEmail.toString()}" class="btn btn-primary"></button>
+    </form>
+    <br>
+    <form method="post" th:action="@{/search}">
         <div class="form-group">
             <input type="text" class="form-control" id="title" name="title" placeholder="czego szukasz??">
         </div>
@@ -31,7 +37,7 @@
         </tr>
     </table>
 </div>
-<div>
+<div sec:authorize="isAuthenticated()">
     <form method="post" th:action="@{/{switch}(eid=${exactEvent.getId()},switch = ${switchButton}? 'leave': 'join')} ">
         <button type="submit" th:text="${switchButton} ? 'Opuść to wydarzenie' :'Dołącz do wydarzenia'" class="btn btn-primary"></button>
     </form>

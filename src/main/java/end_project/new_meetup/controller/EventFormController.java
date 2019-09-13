@@ -37,6 +37,6 @@ public class EventFormController {
         }
         eventService.saveEvent(eventConverter.convertDtoToModel(eventDTO));
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 }

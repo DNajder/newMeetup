@@ -26,7 +26,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -57,8 +56,9 @@ public class SearchAndExactController {
     }
 
     @GetMapping({"/exact", "exact"})
-    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model commentModel, Model comModel, Model joinUserModel, Model switchModel) {
+    public String exactPageView(HttpServletRequest request, HttpServletResponse response, Model exactModel, Model commentModel, Model comModel, Model joinUserModel, Model switchModel, Model userE) {
         int idParam = Integer.parseInt(request.getParameter("id"));
+
         if (request.getParameter("hp").equals("true")) {
             exactEvent = HomePageController.listOfHomeEvents.get(idParam);
         } else {
@@ -68,23 +68,27 @@ public class SearchAndExactController {
         String eventId = request.getParameter("eid");
         log.info(eventId);
 
-        UserModel findMember = userService.findUserByEmail(userContextService.getLogedUserName()).orElseThrow(IllegalArgumentException::new);
+
         commentList = commentaryService.displayAllCommentBiEventId(eventId);
         joinUserList = userService.dispalyUserByEventId(eventId);
 
-        Optional<UserDTO> EmailList = joinUserList.stream()
-                .filter(e -> e.getEmail().equals(findMember.getEmail()))
-                .findAny();
+        if(userContextService.getLogedUserName() != null){
+            String userEmail = userContextService.getLogedUserName();
+            UserModel findMember = userService.findUserByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
 
-        boolean switchButton = (EmailList.isPresent());
+            Optional<UserDTO> EmailList = joinUserList.stream()
+                    .filter(e -> e.getEmail().equals(findMember.getEmail()))
+                    .findAny();
+            boolean switchButton = (EmailList.isPresent());
+            switchModel.addAttribute("switchButton", switchButton);
+            userE.addAttribute("userEmail", userEmail);
+        }
 
-        System.out.println(joinUserList.toString());
-
-        switchModel.addAttribute("switchButton", switchButton);
+        log.info(joinUserList.toString());
         joinUserModel.addAttribute("joinUser", joinUserList);
         exactModel.addAttribute("exactEvent", exactEvent);
         commentModel.addAttribute("commentList", commentList);
-        System.out.println(exactEvent.toString());
+       log.info(exactEvent.toString());
 
         CommentaryDTO commentaryDTO = new CommentaryDTO();
         comModel.addAttribute("commentaryDTO", commentaryDTO);
@@ -159,8 +163,8 @@ public class SearchAndExactController {
 
         EventModel eventById = eventService.findEventById(Long.parseLong(eventId));
 
-        System.out.println(findMember.toString());
-        System.out.println(eventById.toString());
+        log.info(findMember.toString());
+       log.info(eventById.toString());
         userService.saveUser(findMember.removeEvent(findMember, eventById));
 
 
@@ -170,7 +174,7 @@ public class SearchAndExactController {
                 .findAny();
 
         boolean switchButton = (EmailList.isPresent());
-        System.out.println(switchButton);
+        log.info(String.valueOf(switchButton));
 
         switchModel.addAttribute("switchButton", switchButton);
         joinUserModel.addAttribute("joinUser", joinUserList);

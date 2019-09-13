@@ -23,7 +23,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/home", "home", "/event", "event").authenticated()
+                .antMatchers( "/event", "event", "/comment", "comment", "/join", "join", "/leave", "leave").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable().headers().frameOptions().disable()
@@ -35,9 +35,8 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/home")
                 .and()
-                .logout().logoutSuccessUrl("/");
+                .logout().logoutSuccessUrl("/home");
     }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()

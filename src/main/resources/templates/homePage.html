@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org/">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org/"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
@@ -7,21 +9,27 @@
 </head>
 <body>
 <header>
-<h1> -= Welcome =-</h1>
-<br>
-<a href="event" class="btn btn-info" role="button">Dodaj wydażenie</a>
-<br>
-<form method="post" th:action="@{/logout}">
-    <input type="submit" value="Logout">
-</form>
-<div class="search">
-    <form method="get" th:action="@{/search}">
-        <div class="form-group">
-            <input type="text" class="form-control" id="title" name="title" placeholder="czego szukasz??">
-        </div>
-        <button type="submit" class="btn btn-primary">Wyszukaj</button>
-    </form>
-</div>
+    <h1> -= Meetup=-</h1>
+    <br>
+    <!--    <a href="login" class="btn btn-info" role="button">Zaloguj</a>-->
+    <div>
+        <a href="registration" class="btn btn-info" role="button">Zarejestruj śię</a>
+        <br>
+        <form method="post" th:action="@{/{inOut}(inOut=${userEmail==null}? 'login' : 'logout')}">
+            <button type="submit" th:text="${userEmail==null} ? 'Login' :${userEmail.toString()}" class="btn btn-primary"></button>
+        </form>
+    </div>
+    <br>
+    <a href="event" class="btn btn-info" role="button">Dodaj wydażenie</a>
+    <br>
+    <div class="search">
+        <form method="get" th:action="@{/search}">
+            <div class="form-group">
+                <input type="text" class="form-control" id="title" name="title" placeholder="czego szukasz??">
+            </div>
+            <button type="submit" class="btn btn-primary">Wyszukaj</button>
+        </form>
+    </div>
 </header>
 <div th:unless="${#lists.isEmpty(eventActiveDTOS)}">
     <h2>Obecne i nadchodzące evnty</h2>
@@ -34,7 +42,8 @@
 
         </tr>
         <tr th:each="event,iter : ${eventActiveDTOS}">
-            <td><a th:href="@{/exact(id=${iter.index},hp=true,eid=${event.getId()})}" th:text="${event.getTitle()}"></a></td>
+            <td><a th:href="@{/exact(id=${iter.index},hp=true,eid=${event.getId()})}" th:text="${event.getTitle()}"></a>
+            </td>
             <td th:text="${event.getEvenStart()}"></td>
             <td th:text="${event.getEvenEnd()}"></td>
             <td th:text="${event.getDescription().substring(0,49)}"></td>
